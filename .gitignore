@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+outputs/
+~$*.xlsx
+~$*.docx
+.DS_Store
+
+# Raw sequencing reads should be deposited in a sequence repository.
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
