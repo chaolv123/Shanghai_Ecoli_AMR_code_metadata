@@ -1,0 +1,381 @@
+Started UTC: 2026-11-20T20:49:06.365459+00:00
+
+[Core metadata/source-data rebuild] D:\anaconda3\python.exe run_pipelineRevised.py --check
+{
+  "phenotype_n": 5299,
+  "poultry_n": 2305,
+  "swine_n": 2994,
+  "genomic_n": 2622,
+  "wgs_linked_n": 2547,
+  "ARG_matrix_count_mismatch": 0,
+  "tested_comparisons_per_host": {
+    "Poultry": 12,
+    "Swine": 12
+  },
+  "significant_q_lt_0_05": {
+    "Poultry": 12,
+    "Swine": 11
+  },
+  "class_length_rule_discrepancies": 0,
+  "MDR_rule_discrepancies": 0
+}
+
+[PCG 494 reconciliation] D:\anaconda3\python.exe run_pcg_reconciledRevised.py
+ threshold          algorithm  n_isolates  n_PCGs  n_isolates_in_PCGs  localized_PCGs  nonlocalized_PCGs  n_clusters_exceed_pairwise_cutoff
+         5 Ward.D2 height cut        2610     469                1311             343                126                                  0
+        10  author assignment        2610     494                1459             308                186                                  0
+        20 Ward.D2 height cut        2610     522                1681             257                265                                  1
+        25 Ward.D2 height cut        2610     534                1772             235                299                                  1
+
+[Farm-clustered sensitivity models] D:\anaconda3\python.exe run_farm_clusteredRevised.py
+                        check  observed
+               phenotype_rows      5299
+           WGS_phenotype_rows      2547
+               unique_WGS_ids      2547
+                  genome_rows      2622
+                     ARG_rows      2622
+        WGS_to_genome_matched      2547
+     genome_without_phenotype        75
+ phenotype_WGS_without_genome         0
+  ARG_vs_genome_id_difference         0
+    linked_host_disagreements         0
+    linked_year_disagreements         0
+    linked_farm_disagreements         0
+linked_district_disagreements         0
+    intermediate_test_results         0
+Farm models estimable: 108 of 108
+   farm_id_source                 subset    host  estimate  p_value
+   genome_farm_id              All farms     All    0.8604   0.0446
+   genome_farm_id              All farms Poultry    0.8134   0.1572
+   genome_farm_id              All farms   Swine    0.8901   0.2281
+   genome_farm_id Farms sampled >5 years     All    0.8102   0.0038
+   genome_farm_id Farms sampled >5 years Poultry    0.8950   0.4552
+   genome_farm_id Farms sampled >5 years   Swine    0.9334   0.6940
+phenotype_farm_id              All farms     All    0.8604   0.0446
+phenotype_farm_id              All farms Poultry    0.8134   0.1572
+phenotype_farm_id              All farms   Swine    0.8901   0.2281
+phenotype_farm_id Farms sampled >5 years     All    0.8102   0.0038
+phenotype_farm_id Farms sampled >5 years Poultry    0.8950   0.4552
+phenotype_farm_id Farms sampled >5 years   Swine    0.9334   0.6940
+Drug comparisons q<0.05 by group: {'Overall': 13, 'Poultry': 14, 'Swine': 13}
+
+[Reviewer sensitivity analyses] D:\anaconda3\python.exe run_extendedRevised.py --analyses wgs weighted_arg breakpoint st_arg pcg
+Running wgs...
+WGS sampling-bias analysis summary
+==================================
+Input: E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\data\raw\phenotype_metadata.xlsx
+Phenotypic isolates: 5299
+WGS-coded isolates: 2547
+Matched to phenotypic metadata: 2547 (Poultry 1057; Swine 1490)
+Observed: Poultry 1057; Swine 1490
+
+Derived variables
+-----------------
+MDR_binary was analysed as the supplied 0/1 indicator. Antibiogram_length (0-10) was
+also copied to resistance_class_count for clear labelling in output tables.
+
+Main descriptive findings
+-------------------------
+Overall WGS selection fraction: 48.066%.
+No WGS-coded isolates were present in 2008-2009.
+Jiading had 0 WGS-coded isolates;
+Minhang had 0.
+Farms represented in WGS: 44 of 67.
+Phenotypes with WGS-vs-non-WGS chi-square P<0.05: AMP, AMC, TIO, CAZ, SPT, GEN, DOX, TCY, FF, SFX, SXT, ENR, OFX, COL, MDR.
+
+Phenotypic trend reproduction
+-----------------------------
+Across host-outcome combinations, 100.0% had the same 2010-2016 versus
+2017-2023 direction in the full dataset and WGS subset. 97.1% had annual
+Spearman rho >= 0.70. See Trend_concordance for drug-specific results.
+
+Weighting/resampling
+--------------------
+Because there is no WGS support in 2008-2009 and several districts/farms, weights cannot
+identify genomic outcomes for all 5299 isolates. Calibration was therefore restricted to
+the overlap population: 2010-2023, excluding Jiading/Minhang, and farms with >=1 WGS isolate.
+Target n=4144; WGS n=2547; effective weighted n=2368.5.
+Raking stopped after 500 iterations (maximum margin error=3.28e-05; target tolerance=1e-8).
+
+Unresolved requirement
+----------------------
+ARG_count, plasmid-associated ARG burden/count, PT, ST and other genome-derived fields are
+not present in metadata2.xlsx. The exported isolate-level calibration weights can be merged
+with genomic data using WGSisolateid (phenotype table) and isolate_id (genome table); 75
+additional poultry genomes from 2008-2009 have no phenotype-table match and are outside
+the weighting target. Weighted ARG-burden results are in the companion workbook
+Supplementary_weighted_ARG_burden_updated.xlsx; plasmid burden and PT were unavailable.
+
+Done: wgs
+Running weighted_arg...
+   host         period    n  unweighted_mean_ARG_count  calibrated_mean_ARG_count  trimmed_mean_ARG_count  bootstrap_CI_low  bootstrap_CI_high
+Poultry       pre-2017  584                    10.4932                    10.2584                 10.2882               NaN                NaN
+Poultry      post-2017  473                     9.5433                     9.2340                  9.2375               NaN                NaN
+Poultry post_minus_pre 1057                    -0.9498                    -1.0244                 -1.0507           -1.6866            -0.3620
+  Swine       pre-2017  781                    15.2958                    15.1787                 15.1789               NaN                NaN
+  Swine      post-2017  709                    10.8124                    10.6533                 10.6426               NaN                NaN
+  Swine post_minus_pre 1490                    -4.4834                    -4.5254                 -4.5363           -5.0823            -3.9683
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\outputs\extended\wgs\Supplementary_weighted_ARG_burden_updated.xlsx
+Done: weighted_arg
+Running breakpoint...
+Wrote E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\outputs\extended\breakpoint\Supplementary_breakpoint_panel_sensitivity.xlsx
+Wrote E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\outputs\extended\breakpoint\summary.txt
+Done: breakpoint
+Running st_arg...
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[exposure] = (df["ST"] == st).astype(int)
+D:\anaconda3\Lib\site-packages\statsmodels\genmod\families\family.py:1367: ValueWarning: Negative binomial dispersion parameter alpha not set. Using default value alpha=1.0.
+  warnings.warn("Negative binomial dispersion parameter alpha not "
+D:\anaconda3\Lib\site-packages\statsmodels\genmod\families\family.py:1367: ValueWarning: Negative binomial dispersion parameter alpha not set. Using default value alpha=1.0.
+  warnings.warn("Negative binomial dispersion parameter alpha not "
+Wrote E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\outputs\extended\st_arg\Supplementary_ST_ARG_association_sensitivity.xlsx
+Wrote E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\outputs\extended\st_arg\summary.txt
+Done: st_arg
+Running pcg...
+Wrote E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\outputs\extended\pcg\Supplementary_PCG_threshold_sensitivity.xlsx
+Wrote E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\outputs\extended\pcg\summary.txt
+Done: pcg
+
+[PCG sampling-intensity normalization] D:\anaconda3\python.exe run_pcg_sampling_intensityRevised.py
+Second-round PCG sampling-intensity analysis
+Output: E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\outputs\extended\pcg_sampling_intensity\Supplementary_PCG_sampling_intensity_normalized_analysis.xlsx
+
+Normalized denominators:
+   host    period  n_PCG_analyzable_WGS_isolates  n_isolates_in_any_PCG  proportion_in_any_PCG  n_isolates_in_localized_PCG  proportion_in_localized_PCG  localized_prop_CI_low  localized_prop_CI_high  n_isolates_in_nonlocalized_PCG  n_distinct_localized_PCGs  localized_PCGs_per_100_WGS_isolates
+Poultry post-2017                            473                    278               0.587738                          155                     0.327696               0.286932                0.371235                             123                         62                            13.107822
+Poultry  pre-2017                            655                    419               0.639695                          258                     0.393893               0.357197                0.431827                             161                         84                            12.824427
+  Swine post-2017                            708                    342               0.483051                          181                     0.255650               0.224896                0.289041                             161                         68                             9.604520
+  Swine  pre-2017                            774                    420               0.542636                          236                     0.304910               0.273506                0.338240                             184                         94                            12.144703
+
+Unadjusted tests:
+   host       outcome  n_pre  events_pre  proportion_pre  n_post  events_post  proportion_post  post_minus_pre  unadjusted_OR_post_vs_pre  OR_CI_low  OR_CI_high  chi_square  p_value  p_FDR_BH_within_outcome
+Poultry localized_pcg    655         258        0.393893     473          155         0.327696       -0.066198                   0.750024   0.585375    0.960986    5.186084 0.022768                 0.035161
+Poultry       any_pcg    655         419        0.639695     473          278         0.587738       -0.051957                   0.802986   0.629867    1.023687    3.140411 0.076375                 0.076375
+  Swine localized_pcg    774         236        0.304910     708          181         0.255650       -0.049260                   0.782958   0.623402    0.983350    4.437341 0.035161                 0.035161
+  Swine       any_pcg    774         420        0.542636     708          342         0.483051       -0.059585                   0.787588   0.642073    0.966081    5.255404 0.021879                 0.043757
+
+Adjusted GLMM:
+   host       outcome                                              model    n  n_farms       OR   CI_low  CI_high  p_value  random_intercept_variance      convergence
+Poultry localized_pcg                                   density_adjusted 1051       14 1.380438 1.003516 1.898932 0.047527               2.108533e-09        converged
+Poultry localized_pcg                      density_and_fraction_adjusted 1051       14 1.528802 1.094632 2.135179 0.012756               1.721980e-09        converged
+Poultry localized_pcg calibration_weight_density_fraction_farm_clustered 1051       14 1.451856 0.938396 2.246263 0.094043                        NaN robust_clustered
+Poultry localized_pcg     trimmed_weight_density_fraction_farm_clustered 1051       14 1.443396 0.930608 2.238743 0.101245                        NaN robust_clustered
+Poultry       any_pcg                                   density_adjusted 1051       14 1.007256 0.748811 1.354900 0.961881               7.478452e-10        converged
+Poultry       any_pcg                      density_and_fraction_adjusted 1051       14 1.067438 0.783208 1.454817 0.679513               7.907321e-10        converged
+Poultry       any_pcg calibration_weight_density_fraction_farm_clustered 1051       14 1.009836 0.602633 1.692189 0.970355                        NaN robust_clustered
+Poultry       any_pcg     trimmed_weight_density_fraction_farm_clustered 1051       14 1.015041 0.607173 1.696895 0.954591                        NaN robust_clustered
+  Swine localized_pcg                                   density_adjusted 1481       30 1.323841 0.875497 2.001784 0.183600               4.099785e-01        converged
+  Swine localized_pcg                      density_and_fraction_adjusted 1481       30 0.917469 0.595358 1.413854 0.696246               2.988012e-01        converged
+  Swine localized_pcg calibration_weight_density_fraction_farm_clustered 1481       30 0.748908 0.377214 1.486856 0.408606                        NaN robust_clustered
+  Swine localized_pcg     trimmed_weight_density_fraction_farm_clustered 1481       30 0.745629 0.375626 1.480100 0.401417                        NaN robust_clustered
+  Swine       any_pcg                                   density_adjusted 1481       30 1.012363 0.698966 1.466279 0.948165               6.319486e-01        converged
+  Swine       any_pcg                      density_and_fraction_adjusted 1481       30 0.862759 0.584250 1.274033 0.457936               5.471894e-01        converged
+  Swine       any_pcg calibration_weight_density_fraction_farm_clustered 1481       30 0.798847 0.451507 1.413392 0.440424                        NaN robust_clustered
+  Swine       any_pcg     trimmed_weight_density_fraction_farm_clustered 1481       30 0.796432 0.450262 1.408745 0.434072                        NaN robust_clustered
+
+Weighted proportions:
+   host    period       outcome             weight  n_unweighted  sum_weights  effective_sample_size  weighted_proportion  approx_CI_low  approx_CI_high
+Poultry post-2017 localized_pcg calibration_weight           473   717.301801             444.567507             0.317583       0.274307        0.360858
+Poultry post-2017 localized_pcg     trimmed_weight           473   719.575250             445.067516             0.317689       0.274434        0.360944
+Poultry post-2017       any_pcg calibration_weight           473   717.301801             444.567507             0.584740       0.538933        0.630546
+Poultry post-2017       any_pcg     trimmed_weight           473   719.575250             445.067516             0.584717       0.538936        0.630499
+Poultry  pre-2017 localized_pcg calibration_weight           578  1094.225986             537.632050             0.342608       0.302491        0.382725
+Poultry  pre-2017 localized_pcg     trimmed_weight           578  1087.265225             544.123137             0.344138       0.304219        0.384057
+Poultry  pre-2017       any_pcg calibration_weight           578  1094.225986             537.632050             0.632669       0.591919        0.673420
+Poultry  pre-2017       any_pcg     trimmed_weight           578  1087.265225             544.123137             0.631099       0.590556        0.671641
+  Swine post-2017 localized_pcg calibration_weight           708  1028.907799             660.924279             0.258350       0.224978        0.291723
+  Swine post-2017 localized_pcg     trimmed_weight           708  1030.906400             663.086173             0.257689       0.224399        0.290979
+  Swine post-2017       any_pcg calibration_weight           708  1028.907799             660.924279             0.484560       0.446458        0.522662
+  Swine post-2017       any_pcg     trimmed_weight           708  1030.906400             663.086173             0.484115       0.446077        0.522154
+  Swine  pre-2017 localized_pcg calibration_weight           773  1277.597700             736.131181             0.289861       0.257086        0.322636
+  Swine  pre-2017 localized_pcg     trimmed_weight           773  1280.233925             736.379112             0.290001       0.257226        0.322775
+  Swine  pre-2017       any_pcg calibration_weight           773  1277.597700             736.131181             0.531230       0.495180        0.567279
+  Swine  pre-2017       any_pcg     trimmed_weight           773  1280.233925             736.379112             0.531249       0.495206        0.567293
+
+Farm-cluster bootstrap:
+   host       outcome             weight  bootstrap_reps_requested  bootstrap_reps_valid  post_minus_pre    ci_low  ci_high
+Poultry localized_pcg calibration_weight                      2000                  1999       -0.025997 -0.144131 0.074017
+  Swine localized_pcg calibration_weight                      2000                  2000       -0.027947 -0.126458 0.076589
+Poultry localized_pcg     trimmed_weight                      2000                  1999       -0.027157 -0.144574 0.074109
+  Swine localized_pcg     trimmed_weight                      2000                  2000       -0.028730 -0.127148 0.075643
+Poultry       any_pcg calibration_weight                      2000                  1999       -0.039872 -0.126686 0.061694
+  Swine       any_pcg calibration_weight                      2000                  2000       -0.041596 -0.161380 0.086552
+Poultry       any_pcg     trimmed_weight                      2000                  1999       -0.038750 -0.124966 0.061171
+  Swine       any_pcg     trimmed_weight                      2000                  2000       -0.042041 -0.161608 0.085457
+
+Validation:
+                                           check  value                                                    note
+                                   PCG threshold     10                           Primary author PCG assignment
+                   Total PCG-analyzable isolates   2610                          SNP/PCG assignment denominator
+                                   Distinct PCGs    494                                            Expected 494
+                                  Localized PCGs    308                                            Expected 308
+      Phenotype-linked WGS isolates with weights   2547                            2010-2023 overlap population
+Uniquely linked isolates used in adjusted models   2532 After resolving aliases and excluding unmatched PCG IDs
+                         Farms in adjusted model     44               Farm random intercept / cluster bootstrap
+                     Missing calibration weights      0                                              Expected 0
+
+[Resistome/plasmid derived-input reproducibility] D:\anaconda3\python.exe run_derived_analysesRevised.py --permutations 99
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\outputs\derived_reproducibility\Derived_resistome_plasmid_reproducibility.xlsx
+{
+  "genomes": 2622,
+  "lefse_rows_by_host": {
+    "Poultry": 41,
+    "Swine": 44
+  },
+  "predicted_PT_richness": {
+    "Poultry": 67,
+    "Swine": 108,
+    "Shared": 50
+  },
+  "workflow_boundary": "processed metadata, ARG calls, PCG assignments and predicted PT calls; no raw reads"
+}
+
+[Antibiogram/MDR discrepancy export] D:\anaconda3\python.exe export_antibiogram_mdr_discrepanciesRevised.py
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\outputs\antibiogram_MDR_discrepancies_Revised.xlsx
+                            item                                                                               n
+antibiogram_length_discrepancies                                                                               0
+        MDR_binary_discrepancies                                                                               0
+                 any_discrepancy                                                                               0
+                            rule Class positive if any drug in the class is R or I; MDR if >=3 positive classes.
+
+[Publication-file synchronization] D:\anaconda3\python.exe run_publication_syncRevised.py
+{
+  "Supplementary_Table_09": {
+    "annual_positive_FDR_rows": 8,
+    "annual_host_specific_rows": 4,
+    "ST69_adjusted_OR": 2.283928625124129,
+    "ST69_adjusted_p": 0.1577170999014424,
+    "ST10_adjusted_ratio": 0.6602161869001746,
+    "ST10_adjusted_p": 0.003585226196879059
+  },
+  "Source_Data_Fig_01": {
+    "sheets": [
+      "a",
+      "b",
+      "c",
+      "d"
+    ]
+  },
+  "Source_Data_Fig_02": {
+    "sheets": [
+      "a",
+      "b",
+      "c",
+      "d"
+    ],
+    "panel_b_rows": 5299
+  },
+  "Source_Data_Fig_03": {
+    "sheets": [
+      "a",
+      "b_c-ARG",
+      "b_c-Sample-metadata",
+      "d_Poultry_Origin",
+      "d_Swine_Origin",
+      "d_lefse",
+      "e_difference test",
+      "e_line chart",
+      "f"
+    ],
+    "panel_a_rows": 2622
+  },
+  "Source_Data_Fig_04": {
+    "sheets": [
+      "a_Poultry",
+      "a_Swine",
+      "b",
+      "c_Poultry",
+      "c_Swine",
+      "d_ST48",
+      "e_ST29",
+      "f_ST10_ARGs"
+    ]
+  },
+  "Source_Data_Fig_05": {
+    "sheets": [
+      "a",
+      "b",
+      "c",
+      "d&f",
+      "e",
+      "g"
+    ],
+    "localized_isolate_rows": 830,
+    "nonlocalized_isolate_rows": 629
+  },
+  "Source_Data_Fig_06": {
+    "sheets": [
+      "a",
+      "b",
+      "c_Poultry",
+      "c_Swine",
+      "d",
+      "e"
+    ],
+    "PT_ARG_rows": 3217,
+    "predicted_PT_count": 125
+  }
+}
+
+[Unit tests] D:\anaconda3\python.exe -m unittest discover -s tests -v
+test_derived_reproducibility_output (test_pipelineRevised.MetadataPipelineTest.test_derived_reproducibility_output) ... ok
+test_pcg_sampling_intensity_output (test_pipelineRevised.MetadataPipelineTest.test_pcg_sampling_intensity_output) ... ok
+test_publication_sync (test_pipelineRevised.MetadataPipelineTest.test_publication_sync) ... ok
+test_reconciled_pcg (test_pipelineRevised.MetadataPipelineTest.test_reconciled_pcg) ... ok
+test_table1 (test_pipelineRevised.MetadataPipelineTest.test_table1) ... ok
+test_validation (test_pipelineRevised.MetadataPipelineTest.test_validation) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.896s
+
+OK
+
+Completed UTC: 2026-11-20T20:56:54.619269+00:00

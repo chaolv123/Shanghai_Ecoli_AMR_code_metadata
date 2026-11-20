@@ -35,6 +35,53 @@ class MetadataPipelineTest(unittest.TestCase):
         primary = summary[summary.threshold.eq(10)].iloc[0]
         self.assertEqual((primary.n_PCGs, primary.localized_PCGs, primary.nonlocalized_PCGs), (494, 308, 186))
         self.assertEqual(primary.n_clusters_exceed_pairwise_cutoff, 0)
+        fig5 = ROOT / "data" / "publication_inputs" / "Source_Data_Fig_05.xlsx"
+        local = pd.read_excel(fig5, sheet_name="a").dropna(subset=["ID"])
+        nonlocal_ = pd.read_excel(fig5, sheet_name="d&f")
+        self.assertEqual(local.PCGs.nunique(), 308)
+        self.assertEqual(nonlocal_.PCGs.nunique(), 186)
+        self.assertFalse(set(local.PCGs) & set(nonlocal_.PCGs))
+        self.assertIn("JEC10_013", set(local.ID))
+
+    def test_pcg_sampling_intensity_output(self):
+        xlsx = (
+            ROOT
+            / "outputs"
+            / "extended"
+            / "pcg_sampling_intensity"
+            / "Supplementary_PCG_sampling_intensity_normalized_analysis.xlsx"
+        )
+        validation = pd.read_excel(xlsx, sheet_name="Validation")
+        values = dict(zip(validation["check"], validation["value"]))
+        self.assertEqual(values["Total PCG-analyzable isolates"], 2610)
+        self.assertEqual(values["Distinct PCGs"], 494)
+        self.assertEqual(values["Localized PCGs"], 308)
+        denominators = pd.read_excel(xlsx, sheet_name="Period_denominators")
+        self.assertEqual(int(denominators["n_PCG_analyzable_WGS_isolates"].sum()), 2610)
+        self.assertEqual(int(denominators["n_isolates_in_localized_PCG"].sum()), 830)
+        self.assertEqual(int(denominators["n_isolates_in_nonlocalized_PCG"].sum()), 629)
+
+    def test_derived_reproducibility_output(self):
+        xlsx = (
+            ROOT
+            / "outputs"
+            / "derived_reproducibility"
+            / "Derived_resistome_plasmid_reproducibility.xlsx"
+        )
+        richness = pd.read_excel(xlsx, sheet_name="PT_richness")
+        values = dict(zip(richness["host"], richness["predicted_PT_richness"]))
+        self.assertEqual(values, {"Poultry": 67, "Swine": 108, "Shared": 50})
+        lefse = pd.read_excel(xlsx, sheet_name="LEfSe_scores_supplied")
+        self.assertEqual(lefse.groupby("Host").size().to_dict(), {"Poultry": 41, "Swine": 44})
+
+    def test_publication_sync(self):
+        sync = ROOT / "outputs" / "publication_sync"
+        manifest = pd.read_csv(sync / "publication_sync_manifest.csv")
+        self.assertEqual(len(manifest), 7)
+        self.assertTrue((manifest["bytes"] > 0).all())
+        status = json.loads((sync / "publication_sync_validation.json").read_text(encoding="utf-8"))
+        self.assertEqual(status["Supplementary_Table_09"]["annual_positive_FDR_rows"], 8)
+        self.assertEqual(status["Supplementary_Table_09"]["annual_host_specific_rows"], 4)
 
 
 if __name__ == "__main__":

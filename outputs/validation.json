@@ -1,0 +1,18 @@
+{
+  "phenotype_n": 5299,
+  "poultry_n": 2305,
+  "swine_n": 2994,
+  "genomic_n": 2622,
+  "wgs_linked_n": 2547,
+  "ARG_matrix_count_mismatch": 0,
+  "tested_comparisons_per_host": {
+    "Poultry": 12,
+    "Swine": 12
+  },
+  "significant_q_lt_0_05": {
+    "Poultry": 12,
+    "Swine": 11
+  },
+  "class_length_rule_discrepancies": 0,
+  "MDR_rule_discrepancies": 0
+}

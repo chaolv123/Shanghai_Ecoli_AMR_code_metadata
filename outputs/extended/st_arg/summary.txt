@@ -1,0 +1,37 @@
+Review 6 ST-ARG association sensitivity analysis
+========================================================
+Input: E:\Job_of_Dr_lv\论文撰写\NC返修\GitHub_repo_update_20261121\data\raw\genomic_metadata.xlsx
+Isolates: 2622; ARG columns: 137; STs: 499
+Farm ID missing: 75; unknown district: 75
+
+ST69-blaCTX-M-55 isolate-level evidence
+----------------------------------------
+all_isolates: ST69 n=14, blaCTX-M-55 in ST69=5 (0.357); non-ST69 blaCTX-M-55=199/2608 (0.076); Fisher P=0.00304; Haldane OR=6.99.
+poultry_only: ST69 n=14, blaCTX-M-55 in ST69=5 (0.357); non-ST69 blaCTX-M-55=146/1118 (0.131); Fisher P=0.0289; Haldane OR=3.84.
+post2017_only: ST69 n=12, blaCTX-M-55 in ST69=5 (0.417); non-ST69 blaCTX-M-55=105/1170 (0.090); Fisher P=0.00297; Haldane OR=7.41.
+poultry_post2017: ST69 n=12, blaCTX-M-55 in ST69=5 (0.417); non-ST69 blaCTX-M-55=92/461 (0.200); Fisher P=0.0769; Haldane OR=2.93.
+crude_logit: OR=6.73, 95% CI=2.23-20.3, P=0.000705, status=ok.
+adjusted_host_period_district: OR=2.28, 95% CI=0.726-7.18, P=0.158, status=ok.
+poultry_adjusted_period_district: OR=1.54, 95% CI=0.463-5.12, P=0.482, status=ok.
+post2017_adjusted_host_district: OR=2, 95% CI=0.571-6.99, P=0.279, status=ok.
+
+ST10 within-lineage ARG burden
+------------------------------
+ST10_all: n_pre=141, n_post=100, mean 16.830->11.070, change=-5.760, Wilcoxon/Mann-Whitney P=8.62e-14.
+ST10_swine: n_pre=118, n_post=90, mean 17.805->10.844, change=-6.961, Wilcoxon/Mann-Whitney P=9.47e-17.
+ST10_known_district: n_pre=139, n_post=100, mean 16.928->11.070, change=-5.858, Wilcoxon/Mann-Whitney P=3.85e-14.
+negative_binomial_period_host_district: ratio/difference=0.66, 95% CI=0.499-0.873, P=0.00359, status=ok.
+poisson_period_host_district: ratio/difference=0.654, 95% CI=0.607-0.704, P=4.23e-29, status=ok.
+gaussian_period_host_district: ratio/difference=-5.88, 95% CI=-7.29--4.48, P=2.23e-16, status=ok.
+swine_negative_binomial_period_district: ratio/difference=0.618, 95% CI=0.458-0.835, P=0.00167, status=ok.
+swine_gaussian_period_district: ratio/difference=-6.67, 95% CI=-8.15--5.19, P=8.15e-19, status=ok.
+
+Exploratory annual correlation summary
+--------------------------------------
+Annual ST-ARG tests run: 4972; positive FDR<0.05 associations: 8.
+Annual ST69-blaCTX-M-55 (All): rho=0.485, P=0.0569, FDR=0.545, n_years=16.
+Annual ST69-blaCTX-M-55 (Poultry): rho=0.684, P=0.00351, FDR=0.408, n_years=16.
+
+Interpretation
+--------------
+Annual correlations should be treated as exploratory temporal co-occurrence signals. Isolate-level analyses support enrichment of blaCTX-M-55 among ST69 isolates but do not establish mechanistic linkage or co-selection. ST10 shows a robust post-2017 reduction in ARG burden within the lineage, supporting conservative wording as within-lineage resistome simplification.

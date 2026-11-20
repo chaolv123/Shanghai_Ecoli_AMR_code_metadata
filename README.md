@@ -1,75 +1,116 @@
-# Shanghai food-animal E. coli AMR analysis code and metadata
+# Shanghai food-animal *E. coli* AMR reproducibility package
 
-This repository contains the public reproducibility package for the revised
-food-animal *Escherichia coli* AMR surveillance analysis. It includes cleaned
-metadata, reviewer-response analysis code and lightweight tests.
+This repository reproduces the manuscript analyses from public **processed
+inputs**. Raw sequencing reads are intentionally outside the workflow boundary.
+The starting inputs are isolate metadata, acquired-ARG presence/absence calls,
+core-SNP distances and PCG assignments, phenotype-linked WGS calibration
+weights, and predicted plasmid-type/ARG assignments.
 
-Figures, supplementary figures, supplementary tables, manuscript files and
-pre-generated output workbooks are intentionally not included in this public
-GitHub package.
+## One-command workflow
 
-## Repository Structure
-
-- `06_Metadata_and_Input_Data/`: public input metadata and SNP-distance data.
-- `code/`: Python scripts for regenerating the reviewer-response analyses.
-- `code/archive/legacy_python/`: original reviewer-analysis modules called by
-  the wrapper scripts.
-- `data/supporting/`: small supporting files for ST69 virulence/tree analyses.
-- `tests/`: basic validation tests for regenerated outputs.
-- `LICENSE`: MIT License for code.
-- `DATA_LICENSE.md`: CC BY 4.0 license for processed metadata and derived data.
-
-## Input Data
-
-The canonical public input files are:
-
-- `phenotype_metadata.xlsx`: 5,299 phenotyped isolates with corrected
-  `antibiogram_length` and `MDR_binary` values.
-- `genomic_metadata.xlsx`: 2,622 WGS isolates with ARG profiles.
-- `pcg_metadata.xlsx`: metadata for isolates used in PCG/SNP analyses.
-- `pcg_original_assignments.xlsx`: audited author PCG assignments.
-- `core_snp_distances.csv.zip`: zipped core-genome SNP distance matrix, kept
-  below GitHub's browser-upload single-file limit.
-- `metadata_farm_analysis_original.xlsx`: farm-adjusted model input metadata.
-- `ARG_metadata.xlsx`: ARG metadata supplied for sensitivity analyses.
-
-Farm and district fields are intentionally retained as coded metadata to support
-reproducible farm- and district-adjusted analyses.
-
-## Reproducing Analyses
-
-Install Python dependencies:
+### Option 1: Conda
 
 ```bash
-pip install -r requirements.txt
+conda env create -f environmentRevised.yml
+conda activate shanghai-ecoli-amr
+python run_allRevised.py
 ```
 
-Run the full public workflow:
+### Option 2: existing Python and R installations
 
 ```bash
-python code/run_all.py
+pip install -r requirementsRevised.txt
+Rscript install_R_dependencies.R
+python run_allRevised.py
 ```
 
-Or run individual components:
+The complete workflow normally finishes in several minutes on a standard
+desktop computer. A successful run writes:
+
+- `outputs/workflow/run_allRevised.log`
+- `outputs/workflow/workflow_status.json` with `"status": "success"`
+- recomputed metadata-derived source tables;
+- WGS-representativeness, breakpoint, ST-ARG and farm-adjusted analyses;
+- the 494-PCG threshold reconciliation;
+- the second-round PCG sampling-intensity analysis;
+- PCoA/PERMANOVA, supplied LEfSe-score validation and predicted-PT summaries;
+- synchronized copies and SHA-256 hashes for Supplementary Table 9 and Source
+  Data Fig. 1-6;
+- unit-test results.
+
+For a faster smoke test of the PCoA/PERMANOVA stage, use:
 
 ```bash
-python code/run_pipeline.py --check
-python code/run_pcg_reconciled.py
-python code/run_farm_clustered.py
-python code/run_extended.py --analyses wgs weighted_arg breakpoint st_arg
-python code/export_antibiogram_mdr_discrepancies.py
+python run_allRevised.py --pcoa-permutations 99
 ```
 
-Generated files are written to `outputs/`. This folder is ignored by Git and can
-be regenerated from the public inputs.
+The default reproducibility run uses 999 permutations.
 
-After running the scripts, validate the regenerated outputs:
+## Workflow modules
 
-```bash
-python -m unittest discover -s tests -v
-```
+| Script | Purpose |
+|---|---|
+| `run_pipelineRevised.py` | Validates 5,299 phenotype records, 2,622 genomes, ARG counts, AMR rates, MDR and antibiogram length. |
+| `run_pcg_reconciledRevised.py` | Reconciles the primary 494-PCG assignment and 5/20/25-SNP sensitivity cuts. |
+| `run_farm_clusteredRevised.py` | Reproduces farm-clustered robust GLMs used in Supplementary Table 2. |
+| `run_extendedRevised.py` | Runs WGS selection/weighting, breakpoint, ST-ARG and PCG threshold analyses. |
+| `run_pcg_sampling_intensityRevised.py` | Adds period denominators, normalized PCG measures, calibration weighting, farm bootstrap and sampling-density/farm-adjusted models. |
+| `run_derived_analysesRevised.py` | Recomputes PCoA/PERMANOVA and predicted-PT summaries; validates supplied LEfSe scores. |
+| `run_publication_syncRevised.py` | Validates and exports canonical Supplementary Table 9 and Source Data Fig. 1-6 without overwriting publication-order files. |
+| `run_allRevised.py` | Runs all modules and tests in dependency order. |
 
-## Notes
+## Why raw reads are not required
 
-Raw sequencing reads are not stored in this repository and should be linked via
-the final sequence-read accession or repository record when available.
+Read assembly, ARG calling, MLST assignment and plasmid prediction are upstream
+bioinformatics processes. This repository reproduces the statistical analyses
+reported in the manuscript from their processed outputs. The exact LEfSe scores
+and short-read predicted plasmid assignments are included as derived inputs,
+because the original external LEfSe environment and raw plasmid-prediction files
+were not available. The workflow validates these inputs and regenerates all
+downstream summaries used here; it does not claim to reproduce read assembly or
+plasmid prediction from FASTQ files.
+
+## Input layout
+
+- `data/raw/phenotype_metadata.xlsx`: 5,299 phenotype records.
+- `data/raw/genomic_metadata.xlsx`: 2,622 genomes and acquired-ARG matrix.
+- `data/raw/core_snp_distances.csv`: core-SNP distance matrix.
+- `data/raw/pcg_original_assignments.xlsx`: primary author PCG labels.
+- `data/raw/pcg_metadata.xlsx`: metadata aligned to the SNP matrix.
+- `data/raw/pcg_threshold_assignments_enriched.xlsx`: isolate-level PCG
+  assignments and annotations used by the sampling-intensity models.
+- `data/derived/fig3_resistome_derived_input.xlsx`: exact LEfSe/figure-derived resistome inputs.
+- `data/derived/fig6_plasmid_derived_input.xlsx`: predicted PT-ARG, PT burden and PT-ST inputs.
+- `data/publication_inputs/`: canonical Supplementary Table 9 and Source Data
+  Fig. 1-6 used by the synchronization and validation module.
+
+## Key output locations
+
+- `outputs/extended/pcg_sampling_intensity/`: new second-round PCG analysis.
+- `outputs/derived_reproducibility/`: PCoA/PERMANOVA, LEfSe validation and PT summaries.
+- `outputs/publication_sync/`: synchronized Table 9 and Source Data Fig. 1-6 plus checksums.
+- `outputs/extended/`: all other reviewer-response analyses.
+
+## Archived analysis modules
+
+The executable entry points are the repository-relative `*Revised.py` scripts
+listed above. A small set of earlier Python analysis modules is retained under
+`archive/legacy_python/` because the revised wrappers import their statistical
+functions after overriding all input and output paths. They are not intended to
+be run directly. Old path-dependent R working scripts are not included. R is
+required only for the explicitly generated `glmmTMB` models in the PCG
+sampling-intensity module.
+
+## Synchronized publication data
+
+To keep the public repository focused on code, processed inputs and
+reproducibility outputs, manuscript files and publication figure artwork are
+not included. Canonical, workflow-validated copies of Supplementary Table 9
+and Source Data Fig. 1-6 are provided under `outputs/publication_sync/`,
+together with SHA-256 checksums and a validation report.
+
+## Licensing
+
+Code is released under the MIT License. Processed metadata, derived tables and
+source data are released under CC BY 4.0 unless otherwise stated; see
+`DATA_LICENSE.md`.

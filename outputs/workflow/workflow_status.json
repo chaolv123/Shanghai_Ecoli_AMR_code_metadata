@@ -1,0 +1,18 @@
+{
+  "status": "success",
+  "started_utc": "2026-11-20T20:49:06.365459+00:00",
+  "completed_utc": "2026-11-20T20:56:54.619269+00:00",
+  "workflow_boundary": "processed metadata/ARG/PCG/predicted-PT inputs; raw reads excluded",
+  "steps": [
+    "Core metadata/source-data rebuild",
+    "PCG 494 reconciliation",
+    "Farm-clustered sensitivity models",
+    "Reviewer sensitivity analyses",
+    "PCG sampling-intensity normalization",
+    "Resistome/plasmid derived-input reproducibility",
+    "Antibiogram/MDR discrepancy export",
+    "Publication-file synchronization",
+    "Unit tests"
+  ],
+  "log": "outputs\\workflow\\run_allRevised.log"
+}

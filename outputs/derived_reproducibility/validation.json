@@ -1,0 +1,13 @@
+{
+  "genomes": 2622,
+  "lefse_rows_by_host": {
+    "Poultry": 41,
+    "Swine": 44
+  },
+  "predicted_PT_richness": {
+    "Poultry": 67,
+    "Swine": 108,
+    "Shared": 50
+  },
+  "workflow_boundary": "processed metadata, ARG calls, PCG assignments and predicted PT calls; no raw reads"
+}

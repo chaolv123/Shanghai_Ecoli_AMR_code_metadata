@@ -1,0 +1,44 @@
+WGS sampling-bias analysis summary
+==================================
+Input: E:\Job_of_Dr_lv\论文撰写\NC返修\GitHub_repo_update_20261121\data\raw\phenotype_metadata.xlsx
+Phenotypic isolates: 5299
+WGS-coded isolates: 2547
+Matched to phenotypic metadata: 2547 (Poultry 1057; Swine 1490)
+Observed: Poultry 1057; Swine 1490
+
+Derived variables
+-----------------
+MDR_binary was analysed as the supplied 0/1 indicator. Antibiogram_length (0-10) was
+also copied to resistance_class_count for clear labelling in output tables.
+
+Main descriptive findings
+-------------------------
+Overall WGS selection fraction: 48.066%.
+No WGS-coded isolates were present in 2008-2009.
+Jiading had 0 WGS-coded isolates;
+Minhang had 0.
+Farms represented in WGS: 44 of 67.
+Phenotypes with WGS-vs-non-WGS chi-square P<0.05: AMP, AMC, TIO, CAZ, SPT, GEN, DOX, TCY, FF, SFX, SXT, ENR, OFX, COL, MDR.
+
+Phenotypic trend reproduction
+-----------------------------
+Across host-outcome combinations, 100.0% had the same 2010-2016 versus
+2017-2023 direction in the full dataset and WGS subset. 97.1% had annual
+Spearman rho >= 0.70. See Trend_concordance for drug-specific results.
+
+Weighting/resampling
+--------------------
+Because there is no WGS support in 2008-2009 and several districts/farms, weights cannot
+identify genomic outcomes for all 5299 isolates. Calibration was therefore restricted to
+the overlap population: 2010-2023, excluding Jiading/Minhang, and farms with >=1 WGS isolate.
+Target n=4144; WGS n=2547; effective weighted n=2368.5.
+Raking stopped after 500 iterations (maximum margin error=3.28e-05; target tolerance=1e-8).
+
+Unresolved requirement
+----------------------
+ARG_count, plasmid-associated ARG burden/count, PT, ST and other genome-derived fields are
+not present in metadata2.xlsx. The exported isolate-level calibration weights can be merged
+with genomic data using WGSisolateid (phenotype table) and isolate_id (genome table); 75
+additional poultry genomes from 2008-2009 have no phenotype-table match and are outside
+the weighting target. Weighted ARG-burden results are in the companion workbook
+Supplementary_weighted_ARG_burden_updated.xlsx; plasmid burden and PT were unavailable.

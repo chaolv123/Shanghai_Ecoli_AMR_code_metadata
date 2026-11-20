@@ -1,0 +1,77 @@
+{
+  "Supplementary_Table_09": {
+    "annual_positive_FDR_rows": 8,
+    "annual_host_specific_rows": 4,
+    "ST69_adjusted_OR": 2.283928625124129,
+    "ST69_adjusted_p": 0.1577170999014424,
+    "ST10_adjusted_ratio": 0.6602161869001746,
+    "ST10_adjusted_p": 0.003585226196879059
+  },
+  "Source_Data_Fig_01": {
+    "sheets": [
+      "a",
+      "b",
+      "c",
+      "d"
+    ]
+  },
+  "Source_Data_Fig_02": {
+    "sheets": [
+      "a",
+      "b",
+      "c",
+      "d"
+    ],
+    "panel_b_rows": 5299
+  },
+  "Source_Data_Fig_03": {
+    "sheets": [
+      "a",
+      "b_c-ARG",
+      "b_c-Sample-metadata",
+      "d_Poultry_Origin",
+      "d_Swine_Origin",
+      "d_lefse",
+      "e_difference test",
+      "e_line chart",
+      "f"
+    ],
+    "panel_a_rows": 2622
+  },
+  "Source_Data_Fig_04": {
+    "sheets": [
+      "a_Poultry",
+      "a_Swine",
+      "b",
+      "c_Poultry",
+      "c_Swine",
+      "d_ST48",
+      "e_ST29",
+      "f_ST10_ARGs"
+    ]
+  },
+  "Source_Data_Fig_05": {
+    "sheets": [
+      "a",
+      "b",
+      "c",
+      "d&f",
+      "e",
+      "g"
+    ],
+    "localized_isolate_rows": 830,
+    "nonlocalized_isolate_rows": 629
+  },
+  "Source_Data_Fig_06": {
+    "sheets": [
+      "a",
+      "b",
+      "c_Poultry",
+      "c_Swine",
+      "d",
+      "e"
+    ],
+    "PT_ARG_rows": 3217,
+    "predicted_PT_count": 125
+  }
+}

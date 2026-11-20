@@ -1,0 +1,14 @@
+name: shanghai-ecoli-amr
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy=1.26.4
+  - pandas=2.1.4
+  - scipy=1.11.4
+  - openpyxl=3.0.10
+  - lxml=4.9.3
+  - statsmodels=0.14.0
+  - r-base>=4.3
+  - r-glmmtmb
+  - r-sandwich

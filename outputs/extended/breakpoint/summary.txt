@@ -1,0 +1,55 @@
+Review 4 breakpoint and panel sensitivity analysis
+==========================================================
+Phenotype table: n=5299; years=2008-2023
+ARG table: n=2622; years=2008-2023; columns=['isolate_id', 'host', 'year', 'period', 'districts', 'farm_id', 'ST', 'ARG_count']
+
+Panel availability
+------------------
+AMP (Penicillin): n=5299, years=2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023, core=True
+AMC (Penicillin-inhibitor): n=5299, years=2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023, core=True
+TIO (Cephalosporin): n=5296, years=2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023, core=True
+CAZ (Cephalosporin): n=2152, years=2016,2017,2018,2019,2020,2021,2022,2023, core=False
+MEM (Carbapenem): n=2152, years=2016,2017,2018,2019,2020,2021,2022,2023, core=False
+SPT (Aminoglycoside): n=4795, years=2008,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023, core=False
+GEN (Aminoglycoside): n=5299, years=2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023, core=True
+DOX (Tetracycline): n=3096, years=2010,2011,2012,2013,2014,2015,2016,2017, core=False
+TCY (Tetracycline): n=5299, years=2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023, core=True
+FF (Phenicol): n=5299, years=2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023, core=True
+SFX (Sulfonamide): n=5126, years=2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023, core=True
+SXT (Sulfonamide): n=5299, years=2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023, core=True
+ENR (Fluoroquinolone): n=5126, years=2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023, core=True
+OFX (Fluoroquinolone): n=4996, years=2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023, core=False
+COL (Colistin): n=5299, years=2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023, core=True
+
+Fixed core panel drugs: AMP, AMC, TIO, GEN, TCY, FF, SFX, SXT, ENR, COL
+Core panel excludes CAZ and MEM because they were introduced in 2016; excludes DOX because it is available only from 2010 to 2017; excludes SPT and OFX because one early year is absent.
+
+Key 2017 comparisons
+--------------------
+Poultry MDR_binary: pre=0.9656, post=0.8573, change=-0.1082, P=1.17e-21
+Poultry antibiogram_length: pre=6.415, post=4.885, change=-1.53, P=1.54e-55
+Poultry core_panel_MDR_by_class: pre=0.9407, post=0.7758, change=-0.1649, P=1.17e-31
+Poultry core_panel_resistant_class_count: pre=5.994, post=4.378, change=-1.616, P=1.7e-57
+Poultry ARG_count: pre=10.39, post=9.543, change=-0.8497, P=0.0364
+Swine MDR_binary: pre=0.9879, post=0.8557, change=-0.1322, P=1.94e-49
+Swine antibiogram_length: pre=7.105, post=4.814, change=-2.291, P=7e-197
+Swine core_panel_MDR_by_class: pre=0.9793, post=0.8093, change=-0.17, P=2.07e-60
+Swine core_panel_resistant_class_count: pre=6.758, post=4.227, change=-2.531, P=4.29e-209
+Swine ARG_count: pre=15.3, post=10.81, change=-4.483, P=6.62e-51
+
+Direction robustness across 2016/2017/2018 cutoffs
+---------------------------------------------------
+Poultry MDR_binary: changes 2016/2017/2018 = -0.1027/-0.1082/-0.1111; same direction=True
+Poultry antibiogram_length: changes 2016/2017/2018 = -1.425/-1.53/-1.449; same direction=True
+Poultry core_panel_MDR_by_class: changes 2016/2017/2018 = -0.1582/-0.1649/-0.1716; same direction=True
+Poultry core_panel_resistant_class_count: changes 2016/2017/2018 = -1.475/-1.616/-1.55; same direction=True
+Poultry ARG_count: changes 2016/2017/2018 = -0.6963/-0.8497/-0.5927; same direction=True
+Swine MDR_binary: changes 2016/2017/2018 = -0.1033/-0.1322/-0.1609; same direction=True
+Swine antibiogram_length: changes 2016/2017/2018 = -1.874/-2.291/-2.494; same direction=True
+Swine core_panel_MDR_by_class: changes 2016/2017/2018 = -0.1325/-0.17/-0.209; same direction=True
+Swine core_panel_resistant_class_count: changes 2016/2017/2018 = -2.086/-2.531/-2.707; same direction=True
+Swine ARG_count: changes 2016/2017/2018 = -3.784/-4.483/-5.636; same direction=True
+
+Limitation
+----------
+This workbook analyzes total ARG_count; class-level ARG sensitivity is not included here although metadata6.xlsx contains individual ARG columns.
