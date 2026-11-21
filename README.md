@@ -34,7 +34,7 @@ desktop computer. A successful run writes:
 - the 494-PCG threshold reconciliation;
 - the second-round PCG sampling-intensity analysis;
 - PCoA/PERMANOVA, supplied LEfSe-score validation and predicted-PT summaries;
-- synchronized copies and SHA-256 hashes for Supplementary Table 9 and Source
+- synchronized copies and SHA-256 hashes for Supplementary Tables 9/11 and Source
   Data Fig. 1-6;
 - unit-test results.
 
@@ -51,12 +51,12 @@ The default reproducibility run uses 999 permutations.
 | Script | Purpose |
 |---|---|
 | `run_pipelineRevised.py` | Validates 5,299 phenotype records, 2,622 genomes, ARG counts, AMR rates, MDR and antibiogram length. |
-| `run_pcg_reconciledRevised.py` | Reconciles the primary 494-PCG assignment and 5/20/25-SNP sensitivity cuts. |
+| `run_pcg_reconciledRevised.py` | Applies R `hclust(method="ward.D2")` at 5/10/20/25, audits pairwise distances and verifies exact recovery of the primary 494-PCG partition. |
 | `run_farm_clusteredRevised.py` | Reproduces farm-clustered robust GLMs used in Supplementary Table 2. |
-| `run_extendedRevised.py` | Runs WGS selection/weighting, breakpoint, ST-ARG and PCG threshold analyses. |
+| `run_extendedRevised.py` | Runs WGS selection/weighting, breakpoint and ST-ARG analyses; its optional `pcg` target delegates to the authoritative R Ward.D2 workflow. |
 | `run_pcg_sampling_intensityRevised.py` | Adds period denominators, normalized PCG measures, calibration weighting, farm bootstrap and sampling-density/farm-adjusted models. |
 | `run_derived_analysesRevised.py` | Recomputes PCoA/PERMANOVA and predicted-PT summaries; validates supplied LEfSe scores. |
-| `run_publication_syncRevised.py` | Validates and exports canonical Supplementary Table 9 and Source Data Fig. 1-6 without overwriting publication-order files. |
+| `run_publication_syncRevised.py` | Validates and exports canonical Supplementary Tables 9/11 and Source Data Fig. 1-6 without overwriting publication-order files. |
 | `run_allRevised.py` | Runs all modules and tests in dependency order. |
 
 ## Why raw reads are not required
@@ -75,20 +75,20 @@ plasmid prediction from FASTQ files.
 - `data/raw/phenotype_metadata.xlsx`: 5,299 phenotype records.
 - `data/raw/genomic_metadata.xlsx`: 2,622 genomes and acquired-ARG matrix.
 - `data/raw/core_snp_distances.csv`: core-SNP distance matrix.
-- `data/raw/pcg_original_assignments.xlsx`: primary author PCG labels.
+- `data/raw/pcg_original_assignments.xlsx`: historical PCG labels retained for audit only.
 - `data/raw/pcg_metadata.xlsx`: metadata aligned to the SNP matrix.
-- `data/raw/pcg_threshold_assignments_enriched.xlsx`: isolate-level PCG
-  assignments and annotations used by the sampling-intensity models.
+- Ward.D2 isolate-level PCG assignments used by the sampling-intensity models
+  are generated under `outputs/extended/pcg_reconciled/`.
 - `data/derived/fig3_resistome_derived_input.xlsx`: exact LEfSe/figure-derived resistome inputs.
 - `data/derived/fig6_plasmid_derived_input.xlsx`: predicted PT-ARG, PT burden and PT-ST inputs.
-- `data/publication_inputs/`: canonical Supplementary Table 9 and Source Data
+- `data/publication_inputs/`: canonical Supplementary Tables 9/11 and Source Data
   Fig. 1-6 used by the synchronization and validation module.
 
 ## Key output locations
 
 - `outputs/extended/pcg_sampling_intensity/`: new second-round PCG analysis.
 - `outputs/derived_reproducibility/`: PCoA/PERMANOVA, LEfSe validation and PT summaries.
-- `outputs/publication_sync/`: synchronized Table 9 and Source Data Fig. 1-6 plus checksums.
+- `outputs/publication_sync/`: synchronized Tables 9/11 and Source Data Fig. 1-6 plus checksums.
 - `outputs/extended/`: all other reviewer-response analyses.
 
 ## Archived analysis modules
@@ -105,7 +105,7 @@ sampling-intensity module.
 
 To keep the public repository focused on code, processed inputs and
 reproducibility outputs, manuscript files and publication figure artwork are
-not included. Canonical, workflow-validated copies of Supplementary Table 9
+not included. Canonical, workflow-validated copies of Supplementary Tables 9/11
 and Source Data Fig. 1-6 are provided under `outputs/publication_sync/`,
 together with SHA-256 checksums and a validation report.
 

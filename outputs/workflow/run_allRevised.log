@@ -1,4 +1,4 @@
-Started UTC: 2026-11-20T20:49:06.365459+00:00
+Started UTC: 2026-11-21T14:54:38.789138+00:00
 
 [Core metadata/source-data rebuild] D:\anaconda3\python.exe run_pipelineRevised.py --check
 {
@@ -21,9 +21,14 @@ Started UTC: 2026-11-20T20:49:06.365459+00:00
 }
 
 [PCG 494 reconciliation] D:\anaconda3\python.exe run_pcg_reconciledRevised.py
+During startup - Warning messages:
+1: Setting LC_COLLATE=C.UTF-8 failed 
+2: Setting LC_CTYPE=C.UTF-8 failed 
+3: Setting LC_MONETARY=C.UTF-8 failed 
+4: Setting LC_TIME=C.UTF-8 failed 
  threshold          algorithm  n_isolates  n_PCGs  n_isolates_in_PCGs  localized_PCGs  nonlocalized_PCGs  n_clusters_exceed_pairwise_cutoff
          5 Ward.D2 height cut        2610     469                1311             343                126                                  0
-        10  author assignment        2610     494                1459             308                186                                  0
+        10 Ward.D2 height cut        2610     494                1459             308                186                                  0
         20 Ward.D2 height cut        2610     522                1681             257                265                                  1
         25 Ward.D2 height cut        2610     534                1772             235                299                                  1
 
@@ -59,7 +64,7 @@ phenotype_farm_id Farms sampled >5 years Poultry    0.8950   0.4552
 phenotype_farm_id Farms sampled >5 years   Swine    0.9334   0.6940
 Drug comparisons q<0.05 by group: {'Overall': 13, 'Poultry': 14, 'Swine': 13}
 
-[Reviewer sensitivity analyses] D:\anaconda3\python.exe run_extendedRevised.py --analyses wgs weighted_arg breakpoint st_arg pcg
+[Reviewer sensitivity analyses] D:\anaconda3\python.exe run_extendedRevised.py --analyses wgs weighted_arg breakpoint st_arg
 Running wgs...
 WGS sampling-bias analysis summary
 ==================================
@@ -122,55 +127,55 @@ Wrote E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_2026112
 Wrote E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\outputs\extended\breakpoint\summary.txt
 Done: breakpoint
 Running st_arg...
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
-E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:237: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\archive\legacy_python\analyze_st_arg_association_review6.py:240: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   df[exposure] = (df["ST"] == st).astype(int)
 D:\anaconda3\Lib\site-packages\statsmodels\genmod\families\family.py:1367: ValueWarning: Negative binomial dispersion parameter alpha not set. Using default value alpha=1.0.
   warnings.warn("Negative binomial dispersion parameter alpha not "
@@ -179,10 +184,6 @@ D:\anaconda3\Lib\site-packages\statsmodels\genmod\families\family.py:1367: Value
 Wrote E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\outputs\extended\st_arg\Supplementary_ST_ARG_association_sensitivity.xlsx
 Wrote E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\outputs\extended\st_arg\summary.txt
 Done: st_arg
-Running pcg...
-Wrote E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\outputs\extended\pcg\Supplementary_PCG_threshold_sensitivity.xlsx
-Wrote E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\outputs\extended\pcg\summary.txt
-Done: pcg
 
 [PCG sampling-intensity normalization] D:\anaconda3\python.exe run_pcg_sampling_intensityRevised.py
 Second-round PCG sampling-intensity analysis
@@ -253,7 +254,7 @@ Poultry       any_pcg     trimmed_weight                      2000              
 
 Validation:
                                            check  value                                                    note
-                                   PCG threshold     10                           Primary author PCG assignment
+                                   PCG threshold     10                              Primary Ward.D2 height cut
                    Total PCG-analyzable isolates   2610                          SNP/PCG assignment denominator
                                    Distinct PCGs    494                                            Expected 494
                                   Localized PCGs    308                                            Expected 308
@@ -262,7 +263,7 @@ Uniquely linked isolates used in adjusted models   2532 After resolving aliases 
                          Farms in adjusted model     44               Farm random intercept / cluster bootstrap
                      Missing calibration weights      0                                              Expected 0
 
-[Resistome/plasmid derived-input reproducibility] D:\anaconda3\python.exe run_derived_analysesRevised.py --permutations 99
+[Resistome/plasmid derived-input reproducibility] D:\anaconda3\python.exe run_derived_analysesRevised.py --permutations 999
 E:\Job_of_Dr_lv\����׫д\NC����\GitHub_repo_update_20261121\outputs\derived_reproducibility\Derived_resistome_plasmid_reproducibility.xlsx
 {
   "genomes": 2622,
@@ -289,12 +290,24 @@ antibiogram_length_discrepancies                                                
 [Publication-file synchronization] D:\anaconda3\python.exe run_publication_syncRevised.py
 {
   "Supplementary_Table_09": {
-    "annual_positive_FDR_rows": 8,
+    "annual_positive_FDR_rows": 4,
     "annual_host_specific_rows": 4,
+    "annual_pooled_rows": 0,
     "ST69_adjusted_OR": 2.283928625124129,
     "ST69_adjusted_p": 0.1577170999014424,
     "ST10_adjusted_ratio": 0.6602161869001746,
     "ST10_adjusted_p": 0.003585226196879059
+  },
+  "Supplementary_Table_11": {
+    "rows": 2,
+    "hosts": [
+      "Poultry",
+      "Swine"
+    ],
+    "adjusted_P_values": {
+      "Poultry": 0.094,
+      "Swine": 0.409
+    }
   },
   "Source_Data_Fig_01": {
     "sheets": [
@@ -302,7 +315,8 @@ antibiogram_length_discrepancies                                                
       "b",
       "c",
       "d"
-    ]
+    ],
+    "panel_b_total": 5299
   },
   "Source_Data_Fig_02": {
     "sheets": [
@@ -374,8 +388,8 @@ test_table1 (test_pipelineRevised.MetadataPipelineTest.test_table1) ... ok
 test_validation (test_pipelineRevised.MetadataPipelineTest.test_validation) ... ok
 
 ----------------------------------------------------------------------
-Ran 6 tests in 0.896s
+Ran 6 tests in 1.288s
 
 OK
 
-Completed UTC: 2026-11-20T20:56:54.619269+00:00
+Completed UTC: 2026-11-21T14:58:06.020530+00:00

@@ -35,6 +35,16 @@ class MetadataPipelineTest(unittest.TestCase):
         primary = summary[summary.threshold.eq(10)].iloc[0]
         self.assertEqual((primary.n_PCGs, primary.localized_PCGs, primary.nonlocalized_PCGs), (494, 308, 186))
         self.assertEqual(primary.n_clusters_exceed_pairwise_cutoff, 0)
+        r_assignment = pd.read_csv(
+            ROOT / "outputs" / "extended" / "pcg_reconciled" / "R_WardD2_threshold_assignments.csv"
+        ).set_index("isolate_id")
+        historical = pd.read_excel(
+            ROOT / "data" / "raw" / "pcg_original_assignments.xlsx",
+            sheet_name="ALL_ANIMALS_result",
+        ).set_index("ID").loc[r_assignment.index]
+        contingency = pd.crosstab(r_assignment["threshold_10"], historical["within_Cluster"])
+        self.assertTrue((contingency.gt(0).sum(axis=1) == 1).all())
+        self.assertTrue((contingency.gt(0).sum(axis=0) == 1).all())
         fig5 = ROOT / "data" / "publication_inputs" / "Source_Data_Fig_05.xlsx"
         local = pd.read_excel(fig5, sheet_name="a").dropna(subset=["ID"])
         nonlocal_ = pd.read_excel(fig5, sheet_name="d&f")
@@ -77,11 +87,13 @@ class MetadataPipelineTest(unittest.TestCase):
     def test_publication_sync(self):
         sync = ROOT / "outputs" / "publication_sync"
         manifest = pd.read_csv(sync / "publication_sync_manifest.csv")
-        self.assertEqual(len(manifest), 7)
+        self.assertEqual(len(manifest), 8)
         self.assertTrue((manifest["bytes"] > 0).all())
         status = json.loads((sync / "publication_sync_validation.json").read_text(encoding="utf-8"))
-        self.assertEqual(status["Supplementary_Table_09"]["annual_positive_FDR_rows"], 8)
+        self.assertEqual(status["Supplementary_Table_09"]["annual_positive_FDR_rows"], 4)
         self.assertEqual(status["Supplementary_Table_09"]["annual_host_specific_rows"], 4)
+        self.assertEqual(status["Supplementary_Table_09"]["annual_pooled_rows"], 0)
+        self.assertIn("Supplementary_Table_11", status)
 
 
 if __name__ == "__main__":

@@ -1,19 +1,17 @@
-"""Reconcile the author's primary PCG assignments with SNP sensitivity cuts.
+"""Recompute PCGs with R Ward.D2 clustering and audit pairwise SNP distances.
 
-Primary <=10-SNP groups come from pcg_original_assignments.xlsx, column 2.
-Column 3 is a per-isolate flag and is retained for audit, not a group ID.
-Other cutoffs use Ward.D2-equivalent hierarchical clustering and are explicitly
-labelled as sensitivity analyses. Pairwise threshold violations are reported.
+The same R hclust(method="ward.D2") hierarchy is cut at 5, 10, 20 and 25 for the primary and
+sensitivity analyses. The historical author labels are retained only for an
+agreement audit; they are not used to generate any threshold result.
 """
 
 from __future__ import annotations
 
+import subprocess
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from scipy.cluster.hierarchy import fcluster, linkage
-from scipy.spatial.distance import squareform
 from scipy.stats import mannwhitneyu
 
 
@@ -41,11 +39,23 @@ def main() -> None:
     original = original.set_index("ID").loc[ids]
     meta = pd.read_excel(RAW / "pcg_metadata.xlsx").set_index("isolate_id").loc[ids]
     matrix = distance.to_numpy(dtype=np.float64)
-    dendrogram = linkage(squareform(matrix, checks=False), method="ward")
+    assignment_csv = OUT / "R_WardD2_threshold_assignments.csv"
+    expression = (
+        "d<-read.csv('data/raw/core_snp_distances.csv',row.names=1,check.names=FALSE);"
+        "hc<-hclust(as.dist(as.matrix(d)),method='ward.D2');"
+        "z<-data.frame(isolate_id=rownames(d));"
+        + "".join(
+            f"z[['threshold_{threshold}']]<-as.integer(cutree(hc,h={threshold}));"
+            for threshold in THRESHOLDS
+        )
+        + "write.csv(z,'outputs/extended/pcg_reconciled/R_WardD2_threshold_assignments.csv',row.names=FALSE)"
+    )
+    subprocess.run(["Rscript", "-e", expression], check=True, cwd=ROOT)
+    r_assignments = pd.read_csv(assignment_csv).set_index("isolate_id").loc[ids]
 
     summaries, memberships, burden, comparison = [], [], [], []
     for threshold in THRESHOLDS:
-        labels = original.author_PCG_id.to_numpy() if threshold == 10 else fcluster(dendrogram, threshold, criterion="distance")
+        labels = r_assignments[f"threshold_{threshold}"].to_numpy()
         values, counts = np.unique(labels, return_counts=True)
         sizes = dict(zip(values, counts))
         records = pd.DataFrame({"threshold": threshold, "isolate_id": ids,
@@ -72,7 +82,7 @@ def main() -> None:
                                "PCG_type": "localized" if is_localized else "non-localized"})
         memberships.append(records)
         counts_by_type = records.drop_duplicates("cluster_id").PCG_type.value_counts()
-        summaries.append({"threshold": threshold, "algorithm": "author assignment" if threshold == 10 else "Ward.D2 height cut",
+        summaries.append({"threshold": threshold, "algorithm": "Ward.D2 height cut",
                           "n_isolates": len(records), "n_PCGs": int(sum(counts >= 2)),
                           "n_isolates_in_PCGs": int(records.cluster_size.ge(2).sum()),
                           "localized_PCGs": int(counts_by_type.get("localized", 0)),
@@ -92,9 +102,15 @@ def main() -> None:
                                "Mann_Whitney_P": mannwhitneyu(pre, post).pvalue if len(pre) and len(post) else np.nan})
 
     primary = memberships[1]
-    author_group = primary[primary.PCG_type.ne("singleton")].groupby("cluster_id").PCG_type.first()
-    if len(author_group) != 494 or author_group.value_counts().to_dict() != {"localized": 308, "non-localized": 186}:
-        raise ValueError("The author-assigned primary PCGs no longer match the audited 494/308/186 result")
+    primary_group = primary[primary.PCG_type.ne("singleton")].groupby("cluster_id").PCG_type.first()
+    if len(primary_group) != 494 or primary_group.value_counts().to_dict() != {"localized": 308, "non-localized": 186}:
+        raise ValueError("The Ward.D2 10-SNP PCGs no longer match the audited 494/308/186 result")
+    if any(x["threshold"] == 10 and x["n_clusters_exceed_pairwise_cutoff"] != 0 for x in summaries):
+        raise ValueError("At least one primary 10-SNP PCG exceeds 10 pairwise SNPs")
+    primary_author = original["author_PCG_id"].to_numpy()
+    contingency = pd.crosstab(primary["cluster_id"], primary_author)
+    if (contingency.gt(0).sum(axis=1) > 1).any() or (contingency.gt(0).sum(axis=0) > 1).any():
+        raise ValueError("R Ward.D2 10-SNP partition does not exactly reproduce the historical primary partition")
     source_fig5 = ROOT / "05_Source_Data" / "Source_Data_Fig_05.xlsx"
     overlap = None
     overlap_note = "Source_Data_Fig_05.xlsx is included in this package; source-list overlap audit was not required for PCG threshold recalculation."
@@ -110,8 +126,9 @@ def main() -> None:
         {"item": "Original PCGs", "finding": "494 distinct groups with >=2 isolates; 308 localized and 186 non-localized."},
         {"item": "Source-list duplicate", "finding": overlap_note},
         {"item": "Missing localized isolate", "finding": missing_note},
-        {"item": "Primary assignment", "finding": "Author's original column-2 group labels are preserved at <=10 SNP. All primary groups have maximum pairwise SNP distance <=10."},
-        {"item": "Alternative thresholds", "finding": "Ward.D2 hierarchical height cuts at 5, 20 and 25; pairwise-threshold violations are explicitly counted."},
+        {"item": "Primary assignment", "finding": "Ward.D2 hierarchical clustering cut at height 10 produced 494 PCGs; all primary groups have maximum pairwise SNP distance <=10."},
+        {"item": "Alternative thresholds", "finding": "The same Ward.D2 hierarchy was cut at 5, 20 and 25 SNP; pairwise-threshold violations are explicitly counted."},
+        {"item": "Historical-label audit", "finding": "R hclust(method='ward.D2') plus cutree(h=10) exactly reproduces the historical primary partition (not only its aggregate 494/308/186 counts)."},
         {"item": "Third original column", "finding": "Per-isolate 0/1 flag, not an independent PCG ID. It is retained but not used to define groups."},
     ])
     with pd.ExcelWriter(OUT / "Supplementary_PCG_threshold_reconciled.xlsx") as writer:

@@ -1,11 +1,23 @@
 {
   "Supplementary_Table_09": {
-    "annual_positive_FDR_rows": 8,
+    "annual_positive_FDR_rows": 4,
     "annual_host_specific_rows": 4,
+    "annual_pooled_rows": 0,
     "ST69_adjusted_OR": 2.283928625124129,
     "ST69_adjusted_p": 0.1577170999014424,
     "ST10_adjusted_ratio": 0.6602161869001746,
     "ST10_adjusted_p": 0.003585226196879059
+  },
+  "Supplementary_Table_11": {
+    "rows": 2,
+    "hosts": [
+      "Poultry",
+      "Swine"
+    ],
+    "adjusted_P_values": {
+      "Poultry": 0.094,
+      "Swine": 0.409
+    }
   },
   "Source_Data_Fig_01": {
     "sheets": [
@@ -13,7 +25,8 @@
       "b",
       "c",
       "d"
-    ]
+    ],
+    "panel_b_total": 5299
   },
   "Source_Data_Fig_02": {
     "sheets": [

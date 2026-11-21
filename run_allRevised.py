@@ -81,7 +81,7 @@ def main() -> None:
         ("Farm-clustered sensitivity models", [py, "run_farm_clusteredRevised.py"]),
         (
             "Reviewer sensitivity analyses",
-            [py, "run_extendedRevised.py", "--analyses", "wgs", "weighted_arg", "breakpoint", "st_arg", "pcg"],
+            [py, "run_extendedRevised.py", "--analyses", "wgs", "weighted_arg", "breakpoint", "st_arg"],
         ),
         ("PCG sampling-intensity normalization", [py, "run_pcg_sampling_intensityRevised.py"]),
         (

@@ -66,7 +66,7 @@ Poultry       any_pcg     trimmed_weight                      2000              
 
 Validation:
                                            check  value                                                    note
-                                   PCG threshold     10                           Primary author PCG assignment
+                                   PCG threshold     10                              Primary Ward.D2 height cut
                    Total PCG-analyzable isolates   2610                          SNP/PCG assignment denominator
                                    Distinct PCGs    494                                            Expected 494
                                   Localized PCGs    308                                            Expected 308

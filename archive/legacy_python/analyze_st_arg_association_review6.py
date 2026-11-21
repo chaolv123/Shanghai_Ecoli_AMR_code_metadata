@@ -160,8 +160,11 @@ def safe_name(value: str) -> str:
 
 def annual_correlations(df: pd.DataFrame, st_list: list[str], arg_cols: list[str]) -> pd.DataFrame:
     rows = []
-    for host in ["All"] + sorted(df["host"].dropna().unique().tolist()):
-        sub_host = df if host == "All" else df[df["host"] == host]
+    # The manuscript reports host-stratified associations only. Pooling hosts
+    # can create associations driven by host composition, so no combined
+    # "All" analysis is generated here.
+    for host in sorted(df["host"].dropna().unique().tolist()):
+        sub_host = df[df["host"] == host]
         years = sorted(sub_host["year"].dropna().unique())
         if len(years) < 5:
             continue

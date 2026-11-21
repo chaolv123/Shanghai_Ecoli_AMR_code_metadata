@@ -3,7 +3,7 @@
 ## Status
 
 `python run_allRevised.py` completed successfully from the repository root.
-All seven unit tests passed. See `outputs/workflow/workflow_status.json` and
+All six unit tests passed. See `outputs/workflow/workflow_status.json` and
 `outputs/workflow/run_allRevised.log`.
 
 ## Verified inputs
@@ -17,6 +17,9 @@ All seven unit tests passed. See `outputs/workflow/workflow_status.json` and
 ## New PCG sampling-intensity analysis
 
 - Primary threshold: 10 core-genome SNPs.
+- R `hclust(method="ward.D2")` with `cutree(h=10)` exactly reproduced the
+  historical primary partition; all 494 PCGs had maximum pairwise distances
+  of 10 SNPs or fewer.
 - 2,610 PCG-analyzable isolates.
 - 494 PCGs: 308 localized and 186 non-localized.
 - Localized-PCG isolate proportions:
@@ -45,7 +48,7 @@ Full output:
 
 ## Publication-file synchronization
 
-Verified copies of Supplementary Table 9 and Source Data Fig. 1-6 are under
+Verified copies of Supplementary Tables 9/11 and Source Data Fig. 1-6 are under
 `outputs/publication_sync/`. The SHA-256 manifest proves that these copies are
 identical to the canonical publication-order files in this repository.
 

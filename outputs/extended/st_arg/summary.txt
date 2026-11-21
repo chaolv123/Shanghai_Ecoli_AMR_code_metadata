@@ -28,8 +28,7 @@ swine_gaussian_period_district: ratio/difference=-6.67, 95% CI=-8.15--5.19, P=8.
 
 Exploratory annual correlation summary
 --------------------------------------
-Annual ST-ARG tests run: 4972; positive FDR<0.05 associations: 8.
-Annual ST69-blaCTX-M-55 (All): rho=0.485, P=0.0569, FDR=0.545, n_years=16.
+Annual ST-ARG tests run: 3072; positive FDR<0.05 associations: 4.
 Annual ST69-blaCTX-M-55 (Poultry): rho=0.684, P=0.00351, FDR=0.408, n_years=16.
 
 Interpretation

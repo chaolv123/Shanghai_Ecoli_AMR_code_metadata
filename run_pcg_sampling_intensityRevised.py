@@ -14,7 +14,13 @@ from statsmodels.stats.proportion import proportion_confint
 
 
 ANALYSIS_ROOT = Path(__file__).resolve().parent
-PCG_XLSX = ANALYSIS_ROOT / "data" / "raw" / "pcg_threshold_assignments_enriched.xlsx"
+PCG_XLSX = (
+    ANALYSIS_ROOT
+    / "outputs"
+    / "extended"
+    / "pcg_reconciled"
+    / "Supplementary_PCG_threshold_reconciled.xlsx"
+)
 PHENO_XLSX = ANALYSIS_ROOT / "data" / "raw" / "phenotype_metadata.xlsx"
 WEIGHTS_CSV = ANALYSIS_ROOT / "outputs" / "extended" / "wgs" / "WGS_calibration_weights.csv"
 OUTDIR = ANALYSIS_ROOT / "outputs" / "extended" / "pcg_sampling_intensity"
@@ -114,7 +120,7 @@ def main() -> None:
     assn["PCG_id"] = pd.Series(pd.NA, index=assn.index, dtype="object")
     in_pcg = assn["cluster_size"].ge(2)
     assn.loc[in_pcg, "PCG_id"] = (
-        "PCG10_author_"
+        "PCG10_Ward_"
         + assn.loc[in_pcg, "cluster_id"].astype(int).astype(str).str.zfill(4)
     )
     assn["localized_same_year_host_district"] = assn["PCG_type"].eq("localized")
@@ -391,7 +397,7 @@ write.csv(do.call(rbind, out), args[2], row.names=FALSE)
 
     validation = pd.DataFrame(
         [
-            {"check": "PCG threshold", "value": 10, "note": "Primary author PCG assignment"},
+            {"check": "PCG threshold", "value": 10, "note": "Primary Ward.D2 height cut"},
             {"check": "Total PCG-analyzable isolates", "value": len(assn), "note": "SNP/PCG assignment denominator"},
             {"check": "Distinct PCGs", "value": assn["PCG_id"].nunique(), "note": "Expected 494"},
             {"check": "Localized PCGs", "value": pcs["localized_same_year_host_district"].sum(), "note": "Expected 308"},

@@ -123,7 +123,13 @@ def run_resistome(permutations: int) -> tuple[pd.DataFrame, pd.DataFrame, pd.Dat
 def run_plasmid() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     source6 = DERIVED / "fig6_plasmid_derived_input.xlsx"
     pt_arg = pd.read_excel(source6, sheet_name="a")
-    pt_burden = pd.read_excel(source6, sheet_name="b")
+    pt_burden = pd.read_excel(source6, sheet_name="b").rename(
+        columns={"Preiod": "Period", "ARG_counts": "Number of ARGs"}
+    )
+    required_burden = {"ID", "PTs", "Host", "Period", "Number of ARGs"}
+    missing_burden = required_burden - set(pt_burden.columns)
+    if missing_burden:
+        raise ValueError(f"Fig. 6b input is missing columns: {sorted(missing_burden)}")
     genomic = pd.read_excel(RAW / "genomic_metadata.xlsx")
     host_map = genomic.assign(match_id=genomic["isolate_id"].map(norm_id))[["match_id", "host"]]
     pt_arg["match_id"] = pt_arg["ID"].map(norm_id)
