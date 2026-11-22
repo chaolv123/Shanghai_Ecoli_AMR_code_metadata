@@ -51,7 +51,7 @@ def check_r() -> None:
     command = [
         rscript,
         "-e",
-        "stopifnot(requireNamespace('glmmTMB', quietly=TRUE), requireNamespace('sandwich', quietly=TRUE))",
+        "stopifnot(requireNamespace('glmmTMB', quietly=TRUE), requireNamespace('sandwich', quietly=TRUE), requireNamespace('readxl', quietly=TRUE), requireNamespace('openxlsx', quietly=TRUE), requireNamespace('dplyr', quietly=TRUE), requireNamespace('tidyr', quietly=TRUE), requireNamespace('ggplot2', quietly=TRUE), requireNamespace('svglite', quietly=TRUE), requireNamespace('ragg', quietly=TRUE))",
     ]
     result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
     if result.returncode:
@@ -71,6 +71,8 @@ def main() -> None:
     )
     args = parser.parse_args()
     check_r()
+    rscript = shutil.which("Rscript")
+    assert rscript is not None
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     log_path = LOG_DIR / "run_allRevised.log"
     started = datetime.now(timezone.utc).isoformat()
@@ -89,6 +91,7 @@ def main() -> None:
             [py, "run_derived_analysesRevised.py", "--permutations", str(args.pcoa_permutations)],
         ),
         ("Antibiogram/MDR discrepancy export", [py, "export_antibiogram_mdr_discrepanciesRevised.py"]),
+        ("Fig. 2c and Supplementary Table 4 rebuild", [rscript, "update_fig2c_supp_table4Revised.R"]),
         ("Publication-file synchronization", [py, "run_publication_syncRevised.py"]),
         ("Unit tests", [py, "-m", "unittest", "discover", "-s", "tests", "-v"]),
     ]

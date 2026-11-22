@@ -87,9 +87,13 @@ class MetadataPipelineTest(unittest.TestCase):
     def test_publication_sync(self):
         sync = ROOT / "outputs" / "publication_sync"
         manifest = pd.read_csv(sync / "publication_sync_manifest.csv")
-        self.assertEqual(len(manifest), 8)
+        self.assertEqual(len(manifest), 9)
         self.assertTrue((manifest["bytes"] > 0).all())
         status = json.loads((sync / "publication_sync_validation.json").read_text(encoding="utf-8"))
+        self.assertEqual(status["Supplementary_Table_04"]["all_profiles_including_pansusceptible"], 267)
+        self.assertEqual(status["Supplementary_Table_04"]["cross_host_shared_resistant_profiles"], 122)
+        self.assertEqual(status["Supplementary_Table_04"]["poultry_isolates"], 2305)
+        self.assertEqual(status["Supplementary_Table_04"]["swine_isolates"], 2994)
         self.assertEqual(status["Supplementary_Table_09"]["annual_positive_FDR_rows"], 4)
         self.assertEqual(status["Supplementary_Table_09"]["annual_host_specific_rows"], 4)
         self.assertEqual(status["Supplementary_Table_09"]["annual_pooled_rows"], 0)

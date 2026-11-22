@@ -1,4 +1,4 @@
-"""Validate and export canonical Supplementary Tables 9/11 and Source Data 1-6.
+"""Validate and export canonical Supplementary Tables 4/9/11 and Source Data 1-6.
 
 The script never overwrites the publication-order files. It writes verified
 copies and a SHA-256 manifest under outputs/publication_sync.
@@ -31,6 +31,59 @@ def sha256(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def validate_table4(path: Path, source_fig2: Path) -> dict[str, object]:
+    """Validate profile totals, fixed codes and Fig. 2d synchronization."""
+    book = pd.ExcelFile(path)
+    if book.sheet_names != ["Sheet1", "Sheet2"]:
+        raise ValueError("Supplementary Table 4 must contain Sheet1 and Sheet2")
+    sheet1 = pd.read_excel(path, sheet_name="Sheet1", header=None)
+    sheet2 = pd.read_excel(path, sheet_name="Sheet2", header=None)
+    profiles = sheet1.iloc[2:].loc[sheet1.iloc[2:, 1].notna()].copy()
+    shared = sheet2.iloc[2:].loc[sheet2.iloc[2:, 1].notna()].copy()
+    poultry = profiles.iloc[:, 2:18].apply(pd.to_numeric, errors="coerce").fillna(0)
+    swine = profiles.iloc[:, 19:35].apply(pd.to_numeric, errors="coerce").fillna(0)
+    if len(profiles) != 267 or len(shared) != 122:
+        raise ValueError("Supplementary Table 4 must contain 267 total and 122 shared profiles")
+    if int(poultry.to_numpy().sum()) != 2305 or int(swine.to_numpy().sum()) != 2994:
+        raise ValueError("Supplementary Table 4 host totals must equal 2,305 and 2,994")
+
+    expected = {
+        "Profile 152": "Pen-Ami-Tet-Phe-Sul",
+        "Profile 211": "Pen-Lac-Ami-Tet-Phe-Sul",
+        "Profile 238": "Pen-Lac-Ami-Tet-Phe-Sul-Flu",
+        "Profile 239": "Pen-Lac-Ami-Tet-Phe-Sul-Pol",
+        "Profile 255": "Pen-Lac-Ami-Tet-Phe-Sul-Flu-Pol",
+        "Profile 258": "Pen-Lac-Cep-Ami-Tet-Phe-Sul-Flu",
+        "Profile 263": "Pen-Lac-Cep-Ami-Tet-Phe-Sul-Flu-Pol",
+    }
+    code_map = dict(zip(profiles.iloc[:, 0].astype(str), profiles.iloc[:, 1].astype(str)))
+    for code, composition in expected.items():
+        if code_map.get(code) != composition:
+            raise ValueError(f"Supplementary Table 4 changed fixed code {code}")
+
+    fig2d = pd.read_excel(source_fig2, sheet_name="d", header=None)
+    for code in expected:
+        compact = code.replace(" ", "")
+        source_rows = fig2d.index[fig2d.iloc[:, 0].astype(str).eq(compact)].tolist()
+        if len(source_rows) < 1:
+            raise ValueError(f"Source Data Fig. 2d lacks {compact}")
+        source_row = fig2d.loc[source_rows[0]]
+        table_row = profiles.loc[profiles.iloc[:, 0].astype(str).eq(code)].iloc[0]
+        source_p = pd.to_numeric(source_row.iloc[2:18], errors="coerce").fillna(0).to_numpy()
+        source_s = pd.to_numeric(source_row.iloc[20:36], errors="coerce").fillna(0).to_numpy()
+        table_p = pd.to_numeric(table_row.iloc[2:18], errors="coerce").fillna(0).to_numpy()
+        table_s = pd.to_numeric(table_row.iloc[19:35], errors="coerce").fillna(0).to_numpy()
+        if not ((source_p == table_p).all() and (source_s == table_s).all()):
+            raise ValueError(f"Source Data Fig. 2d and Supplementary Table 4 disagree for {code}")
+    return {
+        "all_profiles_including_pansusceptible": int(len(profiles)),
+        "cross_host_shared_resistant_profiles": int(len(shared)),
+        "poultry_isolates": int(poultry.to_numpy().sum()),
+        "swine_isolates": int(swine.to_numpy().sum()),
+        "fixed_profile_codes_verified": list(expected),
+    }
 
 
 def validate_table9(path: Path) -> dict[str, object]:
@@ -168,13 +221,16 @@ def validate_source_data(path: Path, figure: int) -> dict[str, object]:
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     publication_inputs = ROOT / "data" / "publication_inputs"
+    table4 = publication_inputs / "Supplementary_Table_04.xlsx"
     table9 = publication_inputs / "Supplementary_Table_09.xlsx"
     table11 = publication_inputs / "Supplementary_Table_11.xlsx"
+    source_fig2 = publication_inputs / "Source_Data_Fig_02.xlsx"
     validation: dict[str, object] = {
+        "Supplementary_Table_04": validate_table4(table4, source_fig2),
         "Supplementary_Table_09": validate_table9(table9),
         "Supplementary_Table_11": validate_table11(table11),
     }
-    files = [table9, table11]
+    files = [table4, table9, table11]
     for figure in range(1, 7):
         path = publication_inputs / f"Source_Data_Fig_{figure:02d}.xlsx"
         validation[f"Source_Data_Fig_{figure:02d}"] = validate_source_data(path, figure)

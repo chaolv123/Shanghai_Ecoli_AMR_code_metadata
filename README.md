@@ -34,7 +34,7 @@ desktop computer. A successful run writes:
 - the 494-PCG threshold reconciliation;
 - the second-round PCG sampling-intensity analysis;
 - PCoA/PERMANOVA, supplied LEfSe-score validation and predicted-PT summaries;
-- synchronized copies and SHA-256 hashes for Supplementary Tables 9/11 and Source
+- synchronized copies and SHA-256 hashes for Supplementary Tables 4/9/11 and Source
   Data Fig. 1-6;
 - unit-test results.
 
@@ -56,7 +56,8 @@ The default reproducibility run uses 999 permutations.
 | `run_extendedRevised.py` | Runs WGS selection/weighting, breakpoint and ST-ARG analyses; its optional `pcg` target delegates to the authoritative R Ward.D2 workflow. |
 | `run_pcg_sampling_intensityRevised.py` | Adds period denominators, normalized PCG measures, calibration weighting, farm bootstrap and sampling-density/farm-adjusted models. |
 | `run_derived_analysesRevised.py` | Recomputes PCoA/PERMANOVA and predicted-PT summaries; validates supplied LEfSe scores. |
-| `run_publication_syncRevised.py` | Validates and exports canonical Supplementary Tables 9/11 and Source Data Fig. 1-6 without overwriting publication-order files. |
+| `update_fig2c_supp_table4Revised.R` | Rebuilds the MDR-only Fig. 2c accumulation curves, Supplementary Table 4 and synchronized Fig. 2 source data while preserving fixed profile codes. |
+| `run_publication_syncRevised.py` | Validates and exports canonical Supplementary Tables 4/9/11 and Source Data Fig. 1-6 without overwriting publication-order files. |
 | `run_allRevised.py` | Runs all modules and tests in dependency order. |
 
 ## Why raw reads are not required
@@ -81,14 +82,15 @@ plasmid prediction from FASTQ files.
   are generated under `outputs/extended/pcg_reconciled/`.
 - `data/derived/fig3_resistome_derived_input.xlsx`: exact LEfSe/figure-derived resistome inputs.
 - `data/derived/fig6_plasmid_derived_input.xlsx`: predicted PT-ARG, PT burden and PT-ST inputs.
-- `data/publication_inputs/`: canonical Supplementary Tables 9/11 and Source Data
+- `data/publication_inputs/`: canonical Supplementary Tables 4/9/11 and Source Data
   Fig. 1-6 used by the synchronization and validation module.
 
 ## Key output locations
 
 - `outputs/extended/pcg_sampling_intensity/`: new second-round PCG analysis.
 - `outputs/derived_reproducibility/`: PCoA/PERMANOVA, LEfSe validation and PT summaries.
-- `outputs/publication_sync/`: synchronized Tables 9/11 and Source Data Fig. 1-6 plus checksums.
+- `outputs/fig2_profile_update/`: reproducible Fig. 2c, Supplementary Table 4 and synchronized Fig. 2 source-data outputs.
+- `outputs/publication_sync/`: synchronized Tables 4/9/11 and Source Data Fig. 1-6 plus checksums.
 - `outputs/extended/`: all other reviewer-response analyses.
 
 ## Archived analysis modules
@@ -105,7 +107,7 @@ sampling-intensity module.
 
 To keep the public repository focused on code, processed inputs and
 reproducibility outputs, manuscript files and publication figure artwork are
-not included. Canonical, workflow-validated copies of Supplementary Tables 9/11
+not included. Canonical, workflow-validated copies of Supplementary Tables 4/9/11
 and Source Data Fig. 1-6 are provided under `outputs/publication_sync/`,
 together with SHA-256 checksums and a validation report.
 

@@ -1,4 +1,19 @@
 {
+  "Supplementary_Table_04": {
+    "all_profiles_including_pansusceptible": 267,
+    "cross_host_shared_resistant_profiles": 122,
+    "poultry_isolates": 2305,
+    "swine_isolates": 2994,
+    "fixed_profile_codes_verified": [
+      "Profile 152",
+      "Profile 211",
+      "Profile 238",
+      "Profile 239",
+      "Profile 255",
+      "Profile 258",
+      "Profile 263"
+    ]
+  },
   "Supplementary_Table_09": {
     "annual_positive_FDR_rows": 4,
     "annual_host_specific_rows": 4,

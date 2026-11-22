@@ -12,3 +12,10 @@ dependencies:
   - r-base>=4.3
   - r-glmmtmb
   - r-sandwich
+  - r-readxl
+  - r-openxlsx
+  - r-dplyr
+  - r-tidyr
+  - r-ggplot2
+  - r-svglite
+  - r-ragg
