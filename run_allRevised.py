@@ -71,8 +71,6 @@ def main() -> None:
     )
     args = parser.parse_args()
     check_r()
-    rscript = shutil.which("Rscript")
-    assert rscript is not None
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     log_path = LOG_DIR / "run_allRevised.log"
     started = datetime.now(timezone.utc).isoformat()
@@ -91,7 +89,7 @@ def main() -> None:
             [py, "run_derived_analysesRevised.py", "--permutations", str(args.pcoa_permutations)],
         ),
         ("Antibiogram/MDR discrepancy export", [py, "export_antibiogram_mdr_discrepanciesRevised.py"]),
-        ("Fig. 2c and Supplementary Table 4 rebuild", [rscript, "update_fig2c_supp_table4Revised.R"]),
+        ("Fig. 2c and Supplementary Table 4 rebuild", [py, "run_fig2_profile_updateRevised.py"]),
         ("Publication-file synchronization", [py, "run_publication_syncRevised.py"]),
         ("Unit tests", [py, "-m", "unittest", "discover", "-s", "tests", "-v"]),
     ]

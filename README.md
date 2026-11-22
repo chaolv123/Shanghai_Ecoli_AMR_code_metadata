@@ -57,6 +57,7 @@ The default reproducibility run uses 999 permutations.
 | `run_pcg_sampling_intensityRevised.py` | Adds period denominators, normalized PCG measures, calibration weighting, farm bootstrap and sampling-density/farm-adjusted models. |
 | `run_derived_analysesRevised.py` | Recomputes PCoA/PERMANOVA and predicted-PT summaries; validates supplied LEfSe scores. |
 | `update_fig2c_supp_table4Revised.R` | Rebuilds the MDR-only Fig. 2c accumulation curves, Supplementary Table 4 and synchronized Fig. 2 source data while preserving fixed profile codes. |
+| `run_fig2_profile_updateRevised.py` | Launches the R rebuild and automatically stages files through an ASCII-safe temporary path when needed on Windows. |
 | `run_publication_syncRevised.py` | Validates and exports canonical Supplementary Tables 4/9/11 and Source Data Fig. 1-6 without overwriting publication-order files. |
 | `run_allRevised.py` | Runs all modules and tests in dependency order. |
 

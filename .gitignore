@@ -5,6 +5,7 @@ __pycache__/
 ~$*.xlsx
 ~$*.docx
 .DS_Store
+outputs/fig2_profile_update/
 
 # Raw sequencing reads should be deposited in a sequence repository.
 *.fastq
